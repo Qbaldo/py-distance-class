@@ -11,7 +11,7 @@ class Distance:
     def __repr__(self) -> str:
         return f"Distance(km={self.km})"
 
-    def __add__(self, other: float) -> Distance:
+    def __add__(self, other: Distance | int | float) -> Distance:
         if isinstance(other, Distance):
             value = other.km
         elif isinstance(other, (int, float)):
@@ -20,7 +20,7 @@ class Distance:
             return NotImplemented
         return Distance(self.km + value)
 
-    def __iadd__(self, other: float) -> Distance:
+    def __iadd__(self, other: Distance | int | float) -> Distance:
         if isinstance(other, Distance):
             value = other.km
         elif isinstance(other, (int, float)):
@@ -30,49 +30,49 @@ class Distance:
         self.km += value
         return self
 
-    def __mul__(self, other: float) -> Distance:
+    def __mul__(self, other: Distance | int | float) -> Distance:
         if not isinstance(other, (int, float)):
             return NotImplemented
         return Distance(self.km * other)
 
-    def __truediv__(self, other: float) -> Distance:
+    def __truediv__(self, other: Distance | int | float) -> Distance:
         if not isinstance(other, (int, float)):
             return NotImplemented
         return Distance(round(self.km / other, 2))
 
-    def _get_value(self, other: float) -> float:
+    def _get_value(self, other: Distance | int | float) -> (NotImplemented
+                                                            | float):
         if isinstance(other, (int, float)):
             return other
         if isinstance(other, Distance):
             return other.km
-        else:
-            return NotImplemented
+        return NotImplemented
 
-    def __lt__(self, other: float) -> bool:
+    def __lt__(self, other: Distance | int | float) -> bool:
         distance_value = self._get_value(other)
         if distance_value is NotImplemented:
             return NotImplemented
         return self.km < distance_value
 
-    def __gt__(self, other: float) -> bool:
+    def __gt__(self, other: Distance | int | float) -> bool:
         distance_value = self._get_value(other)
         if distance_value is NotImplemented:
             return NotImplemented
         return self.km > distance_value
 
-    def __ge__(self, other: float) -> bool:
+    def __ge__(self, other: Distance | int | float) -> bool:
         distance_value = self._get_value(other)
         if distance_value is NotImplemented:
             return NotImplemented
         return self.km >= distance_value
 
-    def __le__(self, other: float) -> bool:
+    def __le__(self, other: Distance | int | float) -> bool:
         distance_value = self._get_value(other)
         if distance_value is NotImplemented:
             return NotImplemented
         return self.km <= distance_value
 
-    def __eq__(self, other: float) -> bool:
+    def __eq__(self, other: Distance | int | float) -> bool:
         distance_value = self._get_value(other)
         if distance_value is NotImplemented:
             return NotImplemented
